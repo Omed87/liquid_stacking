@@ -1,75 +1,18 @@
-{% comment %} data types {% endcomment %}
-{%- assign myStr = 'John Smith' -%}
-String: {{ myStr }}
-<br>
-{% assign myNum = 55.55 %}
-Number: {{ myNum }}
-<br>
-{% assign MyBul = true %}
-{% if MyBul %}
-    <p>Boolean true</p>
-{% endif %}
-<br>
-{% assign myNul = nil %}
-{% if myNul == nil %}
-    <p>it is null</p>
-{% endif %}
-{% comment %} Arrar  {% endcomment %}
-Product Name: {{ product.title }} <br>
-Number of tags: {{ product.tags.size }}<br>
-one of tags: {{ product.tags[1] }}<br>
-Product tags: {{ product.tags }} <br>
+{{ 'tutorial.css' | asset_url | stylesheet_tag }}
 
-{% comment %} loop through tags  {% endcomment %}
-<p>Product Tags are: </p>
-{% for product in product.tags  %}
-    {{ product }} 
+<p class='nameColor'> {{ collection.title }} </p>
+
+{% comment %} <script src="{{ 'tutorial.js' | asset_url }}" defer></script> {% endcomment %}
+
+{{ collection.products.first.id }}<br>
+{{ collection.products.first.available }}<br>
+{{ collection.products.first.handle }}<br>
+{{ collection.products.first.published_at }} <br>
+{{ collection.products.first.vendor }} <br>
+{{ collection.products.first.images.first }} <br>
+{{ collection.products.first.price | money }} <br>
+{% for tag in collection.products.tags %} 
+    <p>- {{ tag }}</p>
 {% endfor %}
+{{ collection.products.first.featured_image | image_url: width: 500, height: 500 | image_tag }}
 
-{% comment %} rendering object: assing can't access variable but capture do  {% endcomment %}
-{% assign html1 = '
-    <div> <p>hello {{product.title}}</p> </div>'
- %}
- {{ html1 }} <br>
- {% capture html2 %}
- <div>
-    <p> capture: {{ product.title }} </p>
- </div>
- {% endcapture %}
-{{ html2 }} <br>
-<p>--------------------------</p>
-{% comment %} conditional {% endcomment %}
-{% assign var = 4 %}
-{% if var == 44 %}
-    <p>var equals 44</p>
-    {% elsif var > 44%}
-    <p>var greater than 44</p>
-    {% else %}
-    <p>var less than 44</p>
-{% endif %}
-{{ product.title }}<br>
-{% if product.tags.size > 0 %}
-    {{ product.tags }}
-    {% else %}
-    <p>No tags</p>
-{% endif %}
-
-{% if product.title contains 'Snowboard' %}
-    <p> Product contains snowboard </p>
-{% else  %}
-<p> Product do not contains snowboard </p>
-{% endif %}
-
-{% if product.tags contains 'Winter' %}
-    <p> It is for Winter</p>
-    {% else %}
-    <p> It is not for Winter </p>
-{% endif %}
-
-<p>----------------</p>
-{% assign age = 4 %}
-{% unless age == 4 %}
-    <p>age is not 4</p>
-    {% else %}
-    <p>age is  45</p>
-{% endunless %}
