@@ -14,5 +14,17 @@
 {% for tag in collection.products.tags %} 
     <p>- {{ tag }}</p>
 {% endfor %}
-{{ collection.products.first.featured_image | image_url: width: 500, height: 500 | image_tag }}
+{% if collection.products.first.featured_image %}
+    {{ collection.products.first.featured_image | image_url: width: 500, height: 500 | image_tag }}
+{% endif %}
+<img class='nyear' src="{{ 'new.jpg' | asset_img_url: '200x300' }}" alt="new year" loading="eager" width='200' height='300'>
 
+
+{% comment %} 
+{% for collection in collections %}
+    {{- collection.title | link_to: collection.url }}
+  {% endfor %} {% endcomment %}
+
+  {% for product in collections['Hydrogen'].products %}
+    {{- product.title | link_to: product.url }}
+  {% endfor %}
